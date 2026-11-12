@@ -7,10 +7,10 @@ export default function HomePage() {
       <div className="container">
         <header className="page-header reveal">
           <Image
-            src="/incel-logo.png"
+            src="/tourism-logo.png"
             alt="Incel Holidays and Tourism"
-            width={440}
-            height={200}
+            width={382}
+            height={159}
             priority
             quality={95}
             className="page-header__logo"

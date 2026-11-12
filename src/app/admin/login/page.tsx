@@ -13,12 +13,12 @@ export default async function AdminLoginPage() {
       <div className="container">
         <header className="page-header reveal" style={{ marginBottom: 20 }}>
           <Image
-            src="/incel-logo.png"
+            src="/tourism-logo.png"
             alt="Incel Holidays and Tourism"
-            width={180}
-            height={82}
+            width={382}
+            height={159}
             className="page-header__logo"
-            style={{ width: "min(168px, 56%)" }}
+            style={{ width: "min(180px, 58%)" }}
           />
         </header>
         <div className="reveal" style={{ animationDelay: "70ms" }}>

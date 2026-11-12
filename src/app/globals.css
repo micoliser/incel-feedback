@@ -501,28 +501,58 @@ textarea::placeholder {
   background: var(--blue-surface);
   color: var(--blue-deep);
   border: 1px solid rgba(1, 104, 167, 0.2);
-  font-size: 0.78rem;
+  font-size: 0.76rem;
   font-weight: 700;
+  line-height: 1.2;
   white-space: nowrap;
+  width: fit-content;
+  max-width: 100%;
+}
+
+.service-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 9px;
+  border-radius: 8px;
+  background: #f1f5f9;
+  color: var(--text-heading);
+  border: 1px solid var(--border-light);
+  font-size: 0.74rem;
+  font-weight: 600;
+  line-height: 1.25;
 }
 
 .admin-toolbar {
   display: flex;
   flex-wrap: wrap;
-  align-items: flex-end;
+  align-items: center;
   justify-content: space-between;
   gap: 16px;
   margin-bottom: 22px;
 }
 
+.admin-brand {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-width: 0;
+}
+
+.admin-brand__logo {
+  width: 112px;
+  height: auto;
+  flex-shrink: 0;
+}
+
 .admin-toolbar h1 {
-  margin: 0 0 6px;
-  font-size: clamp(1.55rem, 3vw, 1.85rem);
+  margin: 0 0 4px;
+  font-size: clamp(1.45rem, 2.8vw, 1.75rem);
 }
 
 .admin-toolbar p {
   margin: 0;
   color: var(--text-secondary);
+  font-size: 0.95rem;
 }
 
 .admin-actions {
@@ -533,6 +563,7 @@ textarea::placeholder {
 
 .admin-table-wrap {
   overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
   border: 1px solid var(--border-light);
   border-radius: var(--radius-lg);
   background: #ffffff;
@@ -541,8 +572,10 @@ textarea::placeholder {
 
 .admin-table {
   width: 100%;
-  border-collapse: collapse;
-  font-size: 0.88rem;
+  min-width: 980px;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 0.86rem;
 }
 
 .admin-table th {
@@ -550,7 +583,10 @@ textarea::placeholder {
   background: var(--blue-surface);
   color: var(--blue-deep);
   font-weight: 700;
-  padding: 13px 14px;
+  font-size: 0.78rem;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  padding: 12px 14px;
   white-space: nowrap;
   border-bottom: 1px solid var(--border-light);
   position: sticky;
@@ -559,7 +595,7 @@ textarea::placeholder {
 }
 
 .admin-table td {
-  padding: 13px 14px;
+  padding: 14px;
   border-bottom: 1px solid var(--border-light);
   vertical-align: top;
   color: var(--text-body);
@@ -579,7 +615,75 @@ textarea::placeholder {
 
 .admin-table .tabular {
   font-variant-numeric: tabular-nums;
+}
+
+.admin-cell-datetime {
   white-space: nowrap;
+}
+
+.admin-date {
+  display: block;
+  font-weight: 700;
+  color: var(--text-heading);
+  line-height: 1.3;
+}
+
+.admin-time {
+  display: block;
+  margin-top: 2px;
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  line-height: 1.3;
+}
+
+.admin-cell-name {
+  font-weight: 700;
+  color: var(--text-heading);
+  white-space: nowrap;
+}
+
+.admin-cell-email a {
+  color: var(--blue-deep);
+  text-decoration: none;
+  text-underline-offset: 3px;
+}
+
+.admin-cell-email a:hover {
+  text-decoration: underline;
+}
+
+.admin-chip-list,
+.admin-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+.admin-note {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  line-height: 1.4;
+  max-width: 18ch;
+  overflow-wrap: anywhere;
+}
+
+.admin-cell-comments {
+  min-width: 140px;
+  max-width: 220px;
+}
+
+.admin-cell-comments .admin-note {
+  max-width: 220px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.admin-empty {
+  color: var(--text-muted);
 }
 
 .empty-state {
@@ -594,4 +698,27 @@ textarea::placeholder {
   margin: 0;
   color: var(--text-secondary);
   max-width: 48ch;
+}
+
+@media (max-width: 720px) {
+  .admin-brand {
+    width: 100%;
+  }
+
+  .admin-brand__logo {
+    width: 96px;
+  }
+
+  .admin-actions {
+    width: 100%;
+  }
+
+  .admin-actions .btn-secondary,
+  .admin-actions form {
+    flex: 1;
+  }
+
+  .admin-actions form .btn-secondary {
+    width: 100%;
+  }
 }

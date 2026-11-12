@@ -58,20 +58,26 @@ async function sendMail(options: {
     port: config.port,
     secure: config.port === 465,
     requireTLS: config.useTls && config.port !== 465,
+    // Critical for Google SMTP from CapRover/Docker: EHLO must be a real domain
+    name: config.ehloDomain,
     auth:
       config.user || config.password
         ? { user: config.user, pass: config.password }
         : undefined,
   });
 
-  await transporter.sendMail({
-    from: config.fromFormatted,
-    to: recipients.join(", "),
-    subject: options.subject,
-    text: options.text,
-    html: options.html,
-    replyTo: options.replyTo,
-  });
+  try {
+    await transporter.sendMail({
+      from: config.fromFormatted,
+      to: recipients.join(", "),
+      subject: options.subject,
+      text: options.text,
+      html: options.html,
+      replyTo: options.replyTo,
+    });
+  } finally {
+    transporter.close();
+  }
 
   console.info(
     `Successfully sent email '${options.subject}' to ${recipients.join(", ")}`,
@@ -184,17 +190,16 @@ export async function sendInternalNotification(
 export async function sendFeedbackEmails(
   feedback: FeedbackPayload,
 ): Promise<void> {
-  await Promise.allSettled([
-    sendCustomerThankYou(feedback),
-    sendInternalNotification(feedback),
-  ]).then((results) => {
-    results.forEach((result, index) => {
-      if (result.status === "rejected") {
-        console.error(
-          `Failed to send ${index === 0 ? "customer" : "internal"} feedback email:`,
-          result.reason,
-        );
-      }
-    });
-  });
+  // Sequential sends avoid Google rate-limiting two EHLO connections at once
+  try {
+    await sendCustomerThankYou(feedback);
+  } catch (error) {
+    console.error("Failed to send customer feedback email:", error);
+  }
+
+  try {
+    await sendInternalNotification(feedback);
+  } catch (error) {
+    console.error("Failed to send internal feedback email:", error);
+  }
 }

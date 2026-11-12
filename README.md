@@ -87,10 +87,14 @@ EMAIL_HOST_USER=
 EMAIL_HOST_PASSWORD=
 DEFAULT_FROM_EMAIL=info@inceltourism.com
 EMAIL_SENDER_NAME=Incel Holidays and Tourism
+EMAIL_EHLO_DOMAIN=inceltourism.com
 EMAIL_ENABLED=true
 EMAIL_DEBUG=false
 INTERNAL_NOTIFICATION_EMAILS=ops@yourdomain.com
 ```
+
+`EMAIL_EHLO_DOMAIN` must be a real domain (not a CapRover container hostname). Google returns `421 … (EHLO)` if EHLO is something like `srv-captain--incel-feedback…`.
+
 
 ### 4. GitHub secrets (repo Settings → Secrets)
 

@@ -13,6 +13,10 @@ export const metadata: Metadata = {
   title: "Customer Satisfaction | Incel Holidays and Tourism",
   description:
     "Share your feedback with Incel Holidays and Tourism. Your comments help us serve you better.",
+  icons: {
+    icon: [{ url: "/tourism-favicon.png", type: "image/png" }],
+    apple: [{ url: "/tourism-favicon.png", type: "image/png" }],
+  },
 };
 
 export default function RootLayout({

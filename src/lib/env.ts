@@ -26,11 +26,21 @@ export function buildDatabaseUrl(): string {
   return `postgresql://${auth}@${host}:${port}/${name}`;
 }
 
+function domainFromEmail(email: string): string {
+  const at = email.lastIndexOf("@");
+  return at >= 0 ? email.slice(at + 1).toLowerCase() : "";
+}
+
 export function getEmailConfig() {
   const fromAddress =
     process.env.DEFAULT_FROM_EMAIL?.trim() || "info@inceltourism.com";
   const senderName =
     process.env.EMAIL_SENDER_NAME?.trim() || "Incel Holidays and Tourism";
+  // Google rejects EHLO from Docker hostnames (srv-captain--...). Use a real domain.
+  const ehloDomain =
+    process.env.EMAIL_EHLO_DOMAIN?.trim() ||
+    domainFromEmail(fromAddress) ||
+    "inceltourism.com";
 
   return {
     enabled: flag(process.env.EMAIL_ENABLED, true),
@@ -43,6 +53,7 @@ export function getEmailConfig() {
     fromAddress,
     senderName,
     fromFormatted: `${senderName} <${fromAddress}>`,
+    ehloDomain,
     internalRecipients: (process.env.INTERNAL_NOTIFICATION_EMAILS || "")
       .split(",")
       .map((e) => e.trim())
