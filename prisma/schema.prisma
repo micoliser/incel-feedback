@@ -1,0 +1,23 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Feedback {
+  id                  String   @id @default(cuid())
+  createdAt           DateTime @default(now())
+  fullName            String
+  email               String
+  services            String[]
+  servicesOther       String?
+  experienceSeamless  String
+  experienceComments  String?
+  staffRating         String
+  bookAgain           String
+  wouldRefer          String
+  otherComments       String?
+}
