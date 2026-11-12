@@ -71,6 +71,7 @@ Note the internal host, e.g. `srv-captain--incel-portal-postgres` (same pattern 
 ```env
 ADMIN_PASSWORD=
 ADMIN_SESSION_SECRET=
+APP_BASE_URL=https://your-feedback-domain.com
 
 DB_NAME=incel_feedback_db
 DB_USER=incel_feedback_user

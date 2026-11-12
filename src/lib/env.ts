@@ -31,6 +31,14 @@ function domainFromEmail(email: string): string {
   return at >= 0 ? email.slice(at + 1).toLowerCase() : "";
 }
 
+export function getAppBaseUrl(): string {
+  const raw =
+    process.env.APP_BASE_URL?.trim() ||
+    process.env.FRONTEND_BASE_URL?.trim() ||
+    "http://localhost:3000";
+  return raw.replace(/\/+$/, "");
+}
+
 export function getEmailConfig() {
   const fromAddress =
     process.env.DEFAULT_FROM_EMAIL?.trim() || "info@inceltourism.com";
@@ -54,6 +62,7 @@ export function getEmailConfig() {
     senderName,
     fromFormatted: `${senderName} <${fromAddress}>`,
     ehloDomain,
+    appBaseUrl: getAppBaseUrl(),
     internalRecipients: (process.env.INTERNAL_NOTIFICATION_EMAILS || "")
       .split(",")
       .map((e) => e.trim())
